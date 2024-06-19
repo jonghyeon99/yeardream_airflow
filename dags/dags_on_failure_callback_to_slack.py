@@ -2,16 +2,16 @@ from airflow import DAG
 from airflow.operators.bash import BashOperator
 from datetime import timedelta
 import pendulum
-from callbacks.on_failure_callback_to_kakao import on_failure_callback_to_kakao
+from callbacks.on_failure_callback_to_slack import on_failure_callback_to_slack
 
 
 with DAG(
-    dag_id='dags_on_failure_callback_to_kakao',
+    dag_id='dags_on_failure_callback_to_slack',
     start_date=pendulum.datetime(2024, 6, 17, tz='Asia/Seoul'),
-    schedule='*/20 * * * *',
+    schedule='0 * * * *',
     catchup=False,
     default_args={
-        'on_failure_callback':on_failure_callback_to_kakao,
+        'on_failure_callback':on_failure_callback_to_slack,
         'execution_timeout': timedelta(seconds=60)
     }
 
